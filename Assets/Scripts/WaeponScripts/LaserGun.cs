@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class LaserGun : MonoBehaviour
 {
     [Header("Gun Properties")] 

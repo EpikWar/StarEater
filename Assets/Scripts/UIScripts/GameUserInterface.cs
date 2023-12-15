@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UIScripts
 {
@@ -25,6 +26,10 @@ namespace UIScripts
         [SerializeField] private GameObject enemyWindow;
         private GameObject targetTrack;
 
+        [Header("Scene Changer")] 
+        [SerializeField] private GameObject rpgEnterHangar;
+        [SerializeField] private GameObject rtsEnterHangar;
+        
         private RPGShipInfo _rpgShipInfo;
 
 
@@ -54,6 +59,22 @@ namespace UIScripts
             layerGround = LayerMask.GetMask("Ground");
         }
 
+        
+        #region Scene Changer
+        public void EnterHangar(bool stayInTrigger)
+        {
+            if (GameManager.instance.currentGameState == GameManager.instance._rpgState)
+                rpgEnterHangar.SetActive(stayInTrigger);
+            
+            if (GameManager.instance.currentGameState == GameManager.instance._rtsState)
+                rtsEnterHangar.SetActive(stayInTrigger);
+        }
+
+        public void ExitHangar()
+        {
+            SceneManager.LoadScene("SampleScene", LoadSceneMode.Single); // TODO make it changeable
+        }
+        #endregion
         
         #region Entering & exiting modes
         // ReSharper disable Unity.PerformanceAnalysis

@@ -16,6 +16,14 @@ public class GameManager : MonoBehaviour
     public RTSState _rtsState = new();
     public HangarState _hangarState = new();
 
+    
+    private void Awake()
+    {
+        foreach (PlayableShip ps in playablelShip)
+            if (ps.IDShip == shipData.LoadShip().IDShip)
+                Instantiate(ps.Ship);
+    }
+    
     private void OnEnable()
     {
         #region Singelton
@@ -30,11 +38,9 @@ public class GameManager : MonoBehaviour
         #endregion
     }
 
-    private void Awake()
+    private void Start()
     {
-        foreach (PlayableShip ps in playablelShip)
-            if (ps.IDShip == shipData.LoadShip().IDShip)
-                Instantiate(ps.Ship);
+        _stateMachine.Initialize(SceneManager.GetActiveScene().name == "Fit Hangar" ? _hangarState : _rpgState);
     }
 
     private void Update()
@@ -52,11 +58,6 @@ public class GameManager : MonoBehaviour
         _stateMachine.currentState.UpdateState();
 
         currentGameState = _stateMachine.currentState;
-    }
-
-    private void Start()
-    {
-        _stateMachine.Initialize(SceneManager.GetActiveScene().name == "Fit Hangar" ? _hangarState : _rpgState);
     }
 
     private void FixedUpdate()

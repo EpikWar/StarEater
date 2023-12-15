@@ -31,11 +31,12 @@ public class HangarCameraControl : MonoBehaviour
         instance = this;
 
         #endregion
+        
+        cameraMain = Camera.main;
     }
 
     private void Start()
     {
-        cameraMain = Camera.main;
         zoomPosition = minZoomMagnitude;
     }
 

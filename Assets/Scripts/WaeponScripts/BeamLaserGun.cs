@@ -7,7 +7,7 @@ public class BeamLaserGun : LaserGun
     {
         LaserGunShot();
     }
-
+    
     private void LaserGunShot()
     {
         _lineRenderer.SetPosition(0, gunEnd.position);
