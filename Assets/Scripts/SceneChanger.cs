@@ -29,22 +29,4 @@ public class SceneChanger : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(transform.position, boxSize * 2);
     }
-
-    private void OnTriggerEnter(Collider collisionCollider)
-    {
-        if (collisionCollider.GetComponentInParent<PlayerManager>())
-        {
-            GameUserInterface.instance.EnterHangar(true);
-            if (Input.GetKey("f"))
-                SceneManager.LoadScene("Fit Hangar", LoadSceneMode.Single);
-        }
-        
-    }
-
-    private void OnTriggerExit(Collider collisionCollider)
-    {
-        if (collisionCollider == PlayerManager.instance.GetComponentInChildren<Collider>())
-            GameUserInterface.instance.EnterHangar(false);
-        
-    }
 }
