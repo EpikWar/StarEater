@@ -32,7 +32,12 @@ namespace UIScripts
         
         private RPGShipInfo _rpgShipInfo;
 
-
+        private void Awake()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        
         private void OnEnable()
         {
             #region Singelton
@@ -45,12 +50,6 @@ namespace UIScripts
             instance = this;
 
             #endregion
-        }
-
-        private void Awake()
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
 
         private void Start()

@@ -7,12 +7,13 @@ public abstract class DropDownAbstract : MonoBehaviour
 
     private TMP_Dropdown _dropdown;
     
-    private void Awake()
+    private void OnEnable()
     {
         _dropdown = GetComponent<TMP_Dropdown>();
         
         _dropdown.options.Clear();
-        foreach (ScriptableWeapon i in weapon) _dropdown.options.Add(new TMP_Dropdown.OptionData(i.name, i.Sprite));
+        foreach (ScriptableWeapon i in weapon) 
+            _dropdown.options.Add(new TMP_Dropdown.OptionData(i.name, i.Sprite));
     }
 
     private void Start()
