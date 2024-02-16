@@ -27,7 +27,7 @@ public class Stat
         modifiers.Add(modifier);
     }
 
-    public void RemoveModifier(int modifier) // need test "int"
+    public void RemoveModifier(int modifier) //TODO test "int"
     {
         modifiers.RemoveAt(modifier);
     }

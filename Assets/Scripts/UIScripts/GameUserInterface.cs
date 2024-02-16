@@ -31,12 +31,7 @@ namespace UIScripts
         [SerializeField] private GameObject rtsEnterHangar;
         
         private RPGShipInfo _rpgShipInfo;
-
-        private void Awake()
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
+        
         
         private void OnEnable()
         {
@@ -56,6 +51,9 @@ namespace UIScripts
         {
             camMain = Camera.main;
             layerGround = LayerMask.GetMask("Ground");
+            
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         

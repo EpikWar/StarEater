@@ -31,8 +31,9 @@ public class RPGState : GameState
     {
         base.UpdateState();
         
-        _rpgPlayerControl.PlayerRotation();
         _rpgCameraControl.CameraControl();
+        _rpgPlayerControl.PlayerRotation();
+        _rpgPlayerControl.RotateToCursor();
         
         _userInterface.RPGVirtualCursor();
         _userInterface.LockTarget();

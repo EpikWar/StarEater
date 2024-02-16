@@ -1,3 +1,4 @@
+using System;
 using UIScripts;
 using UnityEngine;
 
@@ -34,6 +35,11 @@ public class RPGPlayerControl : MonoBehaviour
 
     #endregion
 
+    private void OnTriggerEnter(Collider other)
+    {
+        print("Player Triggered by " + other.gameObject.name);
+    }
+
     private void OnEnable()
     {
         #region Singelton
@@ -48,15 +54,10 @@ public class RPGPlayerControl : MonoBehaviour
         #endregion
     }
 
-    private void Awake()
-    {
-        _rigidbody = gameObject.AddComponent<Rigidbody>();
-        _rigidbody.freezeRotation = true;
-        _rigidbody.useGravity = true;
-    }
-
     private void Start()
     {
+        _rigidbody = gameObject.GetComponent<Rigidbody>();
+        
         camMain = Camera.main;
         layerGround = LayerMask.GetMask("Ground");
         
@@ -67,13 +68,7 @@ public class RPGPlayerControl : MonoBehaviour
         
         afterburnerCurrentValue = afterburnerMaxValue.GetValue();
     }
-
-    private void Update()
-    {
-        RotateToCursor();
-    }
-
-
+    
     public void PlayerRotation()
     {
         Vector3 currentRotation = transform.localEulerAngles;
@@ -121,11 +116,13 @@ public class RPGPlayerControl : MonoBehaviour
 
     private bool GroundCheck()
     {
+        LayerMask ground = LayerMask.GetMask("Ground");
         Ray ray = new Ray(transform.position + new Vector3(0, playerRadius, 0), Vector3.down);
-        return Physics.SphereCast(ray, playerRadius, playerHeight / 2 + 0.3f);
+        
+        return Physics.SphereCast(ray, playerRadius, playerHeight / 2 + 0.3f, ground);
     }
 
-    public void RotateToCursor() // BUG - Fix raycast, not calling every frame
+    public void RotateToCursor() //There was a bug, but it disappeared
     {
         Ray ray = camMain.ScreenPointToRay(GameUserInterface.instance.GetVirtualCursorPosition());
         

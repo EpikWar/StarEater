@@ -27,7 +27,7 @@ public class KineticWeapon : MonoBehaviour
 
     private void OnValidate()
     {
-        damagePerMinute = damage.GetValue() * (shotPerMinute.GetValue() / 60);
+        damagePerMinute = damage.GetValue() * shotPerMinute.GetValue();
     }
 
 
@@ -36,8 +36,8 @@ public class KineticWeapon : MonoBehaviour
         timeSinceLastShot += Time.fixedDeltaTime;
 
         if (Input.GetMouseButton(0) && timeSinceLastShot >= shotInterval && GameManager.instance.IsRPGState()) {
-            Instantiate(bulletPrefab, muzzle.position, transform.rotation).GetComponent<BulletControl>()
-                .BulletShot(
+            PoolManager.SpawnObject(bulletPrefab, muzzle.position, transform.rotation, PoolManager.PoolName.Bullet)
+                .GetComponent<BulletControl>().BulletShot(
                     transform.forward,
                     muzzleVelocity.GetValue(),
                     damage.GetValue(),
