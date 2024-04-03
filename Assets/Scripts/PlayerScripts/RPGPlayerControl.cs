@@ -26,14 +26,14 @@ public class RPGPlayerControl : MonoBehaviour
     private Camera camMain;
     private LayerMask layerGround;
 
-    
-    #region properties
+
+#region properties
 
     public float GetAfterburnerMaxValue => afterburnerMaxValue.GetValue();
     public float GetAfterburnerValue => afterburnerCurrentValue;
     public float GetPlayerHeight => playerHeight;
 
-    #endregion
+#endregion
 
     private void OnTriggerEnter(Collider other)
     {
@@ -42,7 +42,7 @@ public class RPGPlayerControl : MonoBehaviour
 
     private void OnEnable()
     {
-        #region Singelton
+    #region Singelton
 
         if (instance != null) {
             Destroy(gameObject);
@@ -51,7 +51,7 @@ public class RPGPlayerControl : MonoBehaviour
 
         instance = this;
 
-        #endregion
+    #endregion
     }
 
     private void Start()
@@ -69,14 +69,14 @@ public class RPGPlayerControl : MonoBehaviour
         afterburnerCurrentValue = afterburnerMaxValue.GetValue();
     }
 
-    
+
     public void PlayerRotation()
     {
         Vector3 currentRotation = transform.localEulerAngles;
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1)) 
             currentRotation.y += Input.GetAxis("Mouse X") * rotateSensitivity;
-        
+
         transform.rotation = Quaternion.AngleAxis(currentRotation.y, Vector3.up);
     }
 
@@ -99,10 +99,9 @@ public class RPGPlayerControl : MonoBehaviour
             afterburnerCharge = false;
         }
 
-        if (afterburnerCharge == false && GroundCheck()) 
-        {
+        if (afterburnerCharge == false && GroundCheck()) {
             afterburnerCurrentValue -= afterburnerDrawValue.GetValue();
-            _rigidbody.AddForce(moveVector.normalized * (moveSpeed.GetValue() * afterburnerScale.GetValue()), 
+            _rigidbody.AddForce(moveVector.normalized * (moveSpeed.GetValue() * afterburnerScale.GetValue()),
                 ForceMode.Force);
             _rigidbody.drag /= 2;
         }
@@ -133,8 +132,7 @@ public class RPGPlayerControl : MonoBehaviour
         Ray ray = camMain.ScreenPointToRay(GameUserInterface.instance.GetVirtualCursorPosition());
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerGround)
-            && !Input.GetMouseButton(1) && GameManager.instance.IsRPGState()) 
-        {
+            && !Input.GetMouseButton(1) && GameManager.instance.IsRPGState()) {
             Vector3 pointRotation = new(hit.point.x, playerModel.transform.position.y, hit.point.z);
             playerModel.transform.LookAt(pointRotation);
         }

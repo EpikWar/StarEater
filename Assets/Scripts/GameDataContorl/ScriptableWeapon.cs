@@ -7,7 +7,8 @@ public class ScriptableWeapon : ScriptableObject
     [SerializeField] private GameObject weapon;
     [SerializeField] private Sprite sprite;
 
-    #region properties
+#region properties
+
     public int IDWeapon
     {
         get => idWeapon;
@@ -25,5 +26,7 @@ public class ScriptableWeapon : ScriptableObject
         get => sprite;
         set => sprite = value;
     }
-    #endregion
+
+#endregion
+    
 }

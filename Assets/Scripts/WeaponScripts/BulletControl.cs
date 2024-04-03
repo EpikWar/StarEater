@@ -51,13 +51,13 @@ public class BulletControl : MonoBehaviour
             transform.position += Vector3.down * .1f;
             _rigidbody.drag += .1f;
         }
-        
+
         //Destroy slowed bullet
-         if ((currentPos - previousPos).magnitude < 0.2f) {
-             PoolManager.ReturnToPool(gameObject);
-             ResetBullet();
-             print("Bullet destroying by min speed " + (currentPos - previousPos).magnitude);
-         }
+        if ((currentPos - previousPos).magnitude < 0.2f) {
+            PoolManager.ReturnToPool(gameObject);
+            ResetBullet();
+            print("Bullet destroying by min speed " + (currentPos - previousPos).magnitude);
+        }
 
         previousPos = currentPos;
     }

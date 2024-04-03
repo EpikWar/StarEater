@@ -6,13 +6,13 @@ public abstract class DropDownAbstract : MonoBehaviour
     [SerializeField] protected ScriptableWeapon[] weapon;
 
     private TMP_Dropdown _dropdown;
-    
+
     private void OnEnable()
     {
         _dropdown = GetComponent<TMP_Dropdown>();
-        
+
         _dropdown.options.Clear();
-        foreach (ScriptableWeapon i in weapon) 
+        foreach (ScriptableWeapon i in weapon)
             _dropdown.options.Add(new TMP_Dropdown.OptionData(i.name, i.Sprite));
     }
 
@@ -20,8 +20,8 @@ public abstract class DropDownAbstract : MonoBehaviour
     {
         _dropdown.onValueChanged.AddListener(delegate { DropdownValueChanged(); });
     }
-    
-    
+
+
     private void DropdownValueChanged()
     {
         FindObjectOfType<WeaponFittingControl>().CollectWeaponData();
@@ -31,9 +31,8 @@ public abstract class DropDownAbstract : MonoBehaviour
     public int GetIDWeapon()
     {
         int i = 0;
-       
-        foreach (ScriptableWeapon sw in weapon)
-        {
+
+        foreach (ScriptableWeapon sw in weapon) {
             if (i == _dropdown.value)
                 return sw.IDWeapon;
             i++;
@@ -41,13 +40,12 @@ public abstract class DropDownAbstract : MonoBehaviour
 
         return -1;
     }
-    
+
     public void SetValue(int idWeapon)
     {
         int i = 0;
 
-        foreach (ScriptableWeapon sw in weapon)
-        {
+        foreach (ScriptableWeapon sw in weapon) {
             if (idWeapon != -1 && sw.IDWeapon == idWeapon) //if "-1" - dont Instantiate and go next
                 _dropdown.value = i;
             i++;

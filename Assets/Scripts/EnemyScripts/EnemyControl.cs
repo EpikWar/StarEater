@@ -13,7 +13,7 @@ public class EnemyControl : MonoBehaviour
     private void Start()
     {
         outlineTarget = gameObject.GetComponent<Outline>();
-        
+
         CurrentHealPoint = maxHealPoint;
     }
 

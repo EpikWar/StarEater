@@ -48,6 +48,7 @@ public class BeamLaserGun : MonoBehaviour
         damagePerMinute = damage.GetValue() * 75 * 60; //75 - bc we have 75 physics ticks in second
     }
 
+
     private void WeaponShotRender()
     {
         if (waeponFire) {
@@ -148,7 +149,8 @@ public class BeamLaserGun : MonoBehaviour
         void NoEnemyInCone()
         {
             if (Physics.Raycast(muzzle.position, transform.forward, out var hit, 
-                    maxDistantShot.GetValue(), excludePlayer)) {
+                    maxDistantShot.GetValue(), excludePlayer)) 
+            {
                 waeponFire = true;
                 endPoint = hit.point;
             }

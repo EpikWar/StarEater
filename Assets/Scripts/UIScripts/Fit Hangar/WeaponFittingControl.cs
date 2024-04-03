@@ -17,23 +17,23 @@ public class WeaponFittingControl : MonoBehaviour
     
     private ShipDataKeeper _shipData = new();
 
+    
     private void Start()
     {
         InitWeaponFittingLayout();
     }
-    
-    
+
+
     private void InitWeaponFittingLayout()
     {
         _playerManager = PlayerManager.instance;
-        
+
         // TODO - rocket
 
-        if (_playerManager.GunPointS1.Length >= 1)
-        {
+        if (_playerManager.GunPointS1.Length >= 1) {
             for (int i = 0; i < _playerManager.GunPointS1.Length; i++)
                 Instantiate(s1DropDown, s1Slots.transform);
-            
+
             dds1 = GetComponentsInChildren<DropDownS1>();
             for (int i = 0; i < dds1.Length; i++)
                 dds1[i].SetValue(_shipData.LoadShip().IDWeaponS1[i]);
@@ -41,8 +41,7 @@ public class WeaponFittingControl : MonoBehaviour
         else
             s1Slots.SetActive(false);
 
-        if (_playerManager.GunPointS2.Length >= 1)
-        {
+        if (_playerManager.GunPointS2.Length >= 1) {
             for (int i = 0; i < _playerManager.GunPointS2.Length; i++)
                 Instantiate(s2DropDown, s2Slots.transform);
 
@@ -52,9 +51,8 @@ public class WeaponFittingControl : MonoBehaviour
         }
         else
             s2Slots.SetActive(false);
-        
-        if (_playerManager.GunPointS4.Length >= 1)
-        {
+
+        if (_playerManager.GunPointS4.Length >= 1) {
             for (int i = 0; i < _playerManager.GunPointS4.Length; i++)
                 Instantiate(s4DropDown, s4Slots.transform);
 
@@ -78,7 +76,7 @@ public class WeaponFittingControl : MonoBehaviour
             idWeaponS2[i] = dds2[i].GetIDWeapon();
         for (int i = 0; i < dds4.Length; i++)
             idWeaponS4[i] = dds4[i].GetIDWeapon();
-        
+
         _shipData.IDWeaponS1 = idWeaponS1;
         _shipData.IDWeaponS2 = idWeaponS2;
         _shipData.IDWeaponS4 = idWeaponS4;
@@ -88,57 +86,51 @@ public class WeaponFittingControl : MonoBehaviour
 
     public void ToggleS1Slots(GameObject button)
     {
-        if (dds1[0].isActiveAndEnabled)
-        {
+        if (dds1[0].isActiveAndEnabled) {
             foreach (DropDownS1 downS1 in dds1)
                 downS1.gameObject.SetActive(false);
 
             button.transform.Rotate(0, 0, 180);
         }
 
-        else if (!dds1[0].isActiveAndEnabled)
-        {
+        else if (!dds1[0].isActiveAndEnabled) {
             foreach (DropDownS1 downS1 in dds1)
                 downS1.gameObject.SetActive(true);
-            
+
             button.transform.Rotate(0, 0, 180);
         }
     }
-    
+
     public void ToggleS2Slots(GameObject button)
     {
-        if (dds2[0].isActiveAndEnabled)
-        {
+        if (dds2[0].isActiveAndEnabled) {
             foreach (DropDownS2 downS2 in dds2)
                 downS2.gameObject.SetActive(false);
 
             button.transform.Rotate(0, 0, 180);
         }
 
-        else if (!dds2[0].isActiveAndEnabled)
-        {
+        else if (!dds2[0].isActiveAndEnabled) {
             foreach (DropDownS2 downS2 in dds2)
                 downS2.gameObject.SetActive(true);
-            
+
             button.transform.Rotate(0, 0, 180);
         }
     }
-    
+
     public void ToggleS4Slots(GameObject button)
     {
-        if (dds4[0].isActiveAndEnabled)
-        {
+        if (dds4[0].isActiveAndEnabled) {
             foreach (DropDownS4 downS4 in dds4)
                 downS4.gameObject.SetActive(false);
 
             button.transform.Rotate(0, 0, 180);
         }
 
-        else if (!dds4[0].isActiveAndEnabled)
-        {
+        else if (!dds4[0].isActiveAndEnabled) {
             foreach (DropDownS4 downS4 in dds4)
                 downS4.gameObject.SetActive(true);
-            
+
             button.transform.Rotate(0, 0, 180);
         }
     }

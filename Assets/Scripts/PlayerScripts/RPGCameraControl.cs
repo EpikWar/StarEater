@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class RPGCameraControl : MonoBehaviour
@@ -18,18 +17,19 @@ public class RPGCameraControl : MonoBehaviour
     [Header("Camera Yaw")] 
     [SerializeField] private GameObject cameraYaw;
 
+    
     private void OnEnable()
     {
-        #region Singelton
+    #region Singelton
 
-        if (instance != null)
-        {
+        if (instance != null) {
             Destroy(gameObject);
             return;
         }
+
         instance = this;
 
-        #endregion
+    #endregion
     }
 
     private void Awake()
@@ -37,24 +37,24 @@ public class RPGCameraControl : MonoBehaviour
         cameraMain = Camera.main;
         zoomPosition = minZoomMagnitude;
     }
-    
-    
+
+
     public void CameraControl()
     {
         CameraFollowPlayer();
         CameraRotate();
         CameraZoom();
     }
-    
+
     private void CameraRotate()
     {
         Vector3 currentRotation = gameObject.transform.localEulerAngles;
-        if (Input.GetMouseButton(1))
-        {
+        if (Input.GetMouseButton(1)) {
             currentRotation.y += Input.GetAxis("Mouse X") * rotateSensitivity;
             currentRotation.x -= Input.GetAxis("Mouse Y") * rotateSensitivity;
             currentRotation.x = Mathf.Clamp(currentRotation.x, 330, 359);
         }
+
         transform.localRotation = Quaternion.Euler(currentRotation.x, currentRotation.y, 0);
     }
 
@@ -71,14 +71,14 @@ public class RPGCameraControl : MonoBehaviour
     {
         transform.position = playerObj.transform.position;
     }
-    
+
     public void EnterRPGMode()
     {
         playerObj = RPGPlayerControl.instance;
-        
+
         transform.position = playerObj.transform.position;
         transform.rotation = Quaternion.Euler(-15, transform.eulerAngles.y, transform.eulerAngles.z);
-        
+
         cameraYaw.transform.localRotation = Quaternion.Euler(30, 0, 0);
 
         cameraMain.transform.localPosition = cameraVector.normalized * zoomPosition;

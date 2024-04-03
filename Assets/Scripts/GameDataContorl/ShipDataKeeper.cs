@@ -13,72 +13,72 @@ public class ShipDataKeeper
     private string fullPath = "";
     private string data = "";
 
-    public ShipDataKeeper()
-    {
-    }
+    public ShipDataKeeper() { }
 
-    #region properties
+    
+#region properties
+
     public int IDShip
     {
         get => idShip;
         set => idShip = value;
     }
-    
+
     public int[] IDWeaponS1
     {
         get => idWeaponS1;
         set => idWeaponS1 = value;
     }
-    
+
     public int[] IDWeaponS2
     {
         get => idWeaponS2;
         set => idWeaponS2 = value;
     }
+
     public int[] IDWeaponS4
     {
         get => idWeaponS4;
         set => idWeaponS4 = value;
     }
-    #endregion
+
+#endregion
 
     public void SaveShip(ShipDataKeeper shipDataKeeper)
     {
         data = JsonUtility.ToJson(shipDataKeeper, true);
 
-        try
-        {
-            fullPath = Path.Combine(Application.persistentDataPath, "data\\Saved Ships", new DataKeeper().Load().IDShipSaveSlot.ToString());
+        try {
+            fullPath = Path.Combine(Application.persistentDataPath, "data\\Saved Ships",
+                new DataKeeper().Load().IDShipSaveSlot.ToString());
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath)!);
 
-            using FileStream stream = new FileStream(fullPath, FileMode.Create);
-            using StreamWriter writer = new StreamWriter(stream);
+            using FileStream stream = new (fullPath, FileMode.Create);
+            using StreamWriter writer = new (stream);
             writer.Write(data);
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             Debug.LogError($"Problem with saving data to {fullPath}\n{e}");
         }
     }
 
     public ShipDataKeeper LoadShip()
     {
-        try
-        {
-            fullPath = Path.Combine(Application.persistentDataPath, "data\\Saved Ships", new DataKeeper().Load().IDShipSaveSlot.ToString());
-    
-            using FileStream stream = new FileStream(fullPath, FileMode.Open);
-            using StreamReader reader = new StreamReader(stream);
+        try {
+            fullPath = Path.Combine(Application.persistentDataPath, "data\\Saved Ships",
+                new DataKeeper().Load().IDShipSaveSlot.ToString());
+
+            using FileStream stream = new (fullPath, FileMode.Open);
+            using StreamReader reader = new (stream);
             data = reader.ReadToEnd();
-    
+
             ShipDataKeeper shipDataKeeper = JsonUtility.FromJson<ShipDataKeeper>(data);
             return shipDataKeeper;
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             Console.WriteLine($"Problem with loading data from {fullPath}\n{e}");
         }
-    
+
         return null;
     }
 }

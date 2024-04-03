@@ -6,8 +6,10 @@ public class PlayableShip : ScriptableObject
     [SerializeField] private int idShip;
     [SerializeField] private GameObject ship;
     [SerializeField] private Sprite sprite;
- 
-    #region properties
+
+    
+#region properties
+
     public int IDShip
     {
         get => idShip;
@@ -25,5 +27,7 @@ public class PlayableShip : ScriptableObject
         get => sprite;
         set => sprite = value;
     }
-    #endregion
+
+#endregion
+    
 }

@@ -8,7 +8,7 @@ public class PoolManager : MonoBehaviour
 
     private GameObject emptyPoolHolder;
     private static GameObject emptyBulletHolder;
-    
+
     public enum PoolName
     {
         Bullet,

@@ -16,7 +16,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private ScriptableWeapon[] weaponS2;
     [SerializeField] private ScriptableWeapon[] weaponS4;
 
-    #region properties
+    
+#region properties
 
     public GameObject[] RocketPoint
     {
@@ -42,12 +43,12 @@ public class PlayerManager : MonoBehaviour
         set => gunPointS4 = value;
     }
 
-    #endregion
-    
+#endregion
+
 
     private void OnEnable()
     {
-        #region Singelton
+    #region Singelton
 
         if (instance != null) {
             Destroy(gameObject);
@@ -56,15 +57,15 @@ public class PlayerManager : MonoBehaviour
 
         instance = this;
 
-        #endregion
+    #endregion
     }
 
     private void Start()
     {
         LoadWeapon();
     }
-    
-    
+
+
     public void LoadWeapon()
     {
         ShipDataKeeper shipData = new();
@@ -131,5 +132,4 @@ public class PlayerManager : MonoBehaviour
             Debug.LogError($"Trouble with instantiate weapon s4:\n{e}");
         }
     }
-
 }

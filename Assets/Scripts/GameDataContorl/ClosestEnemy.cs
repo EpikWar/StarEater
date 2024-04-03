@@ -10,7 +10,7 @@ public class ClosestEnemy : IComparable<ClosestEnemy>
         Enemy = enemy;
         Distance = distance;
     }
-    
+
     public int CompareTo(ClosestEnemy closestDistance)
     {
         return Distance.CompareTo(closestDistance.Distance);

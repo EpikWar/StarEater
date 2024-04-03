@@ -10,7 +10,7 @@ public class Stat
 
     public List<float> modifiers;
 
-    
+
     public float GetValue()
     {
         return baseValue + modifiers.Sum();
@@ -21,7 +21,7 @@ public class Stat
         if (baseValue == 0)
             baseValue = value;
     }
-    
+
     public void AddModifier(float modifier)
     {
         modifiers.Add(modifier);

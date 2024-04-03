@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         //Spawn Player ship
-        foreach (var ps in playablelShip) 
+        foreach (var ps in playablelShip)
             if (ps.IDShip == shipData.LoadShip().IDShip) {
                 Instantiate(ps.Ship);
                 break;
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     #endregion
     }
-    
+
     private void Start()
     {
         _stateMachine.Initialize(SceneManager.GetActiveScene().name == "Fit Hangar" ? _hangarState : _rpgState);
@@ -49,9 +49,9 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         _stateMachine.currentState.UpdateState();
-        
+
         currentGameState = _stateMachine.currentState;
-        
+
         //Temporally State change
         if (Input.GetKeyDown("t"))
             _stateMachine.ChangeState(_rtsState);

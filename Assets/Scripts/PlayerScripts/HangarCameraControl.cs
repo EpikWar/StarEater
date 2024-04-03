@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class HangarCameraControl : MonoBehaviour
@@ -21,17 +20,17 @@ public class HangarCameraControl : MonoBehaviour
 
     private void OnEnable()
     {
-        #region Singelton
+    #region Singelton
 
-        if (instance != null)
-        {
+        if (instance != null) {
             Destroy(gameObject);
             return;
         }
+
         instance = this;
 
-        #endregion
-        
+    #endregion
+
         cameraMain = Camera.main;
     }
 
@@ -46,16 +45,16 @@ public class HangarCameraControl : MonoBehaviour
         CameraZoom();
     }
 
-    
+
     private void CameraRotate()
     {
         Vector3 currentRotation = transform.localEulerAngles;
-        if (Input.GetMouseButton(1))
-        {
+        if (Input.GetMouseButton(1)) {
             currentRotation.y += Input.GetAxis("Mouse X") * rotateSensitivity;
             currentRotation.x += Input.GetAxis("Mouse Y") * rotateSensitivity;
             currentRotation.x = Mathf.Clamp(currentRotation.x, 270, 359);
         }
+
         transform.rotation = Quaternion.Euler(currentRotation.x, currentRotation.y, 0);
     }
 
@@ -74,10 +73,10 @@ public class HangarCameraControl : MonoBehaviour
 
         transform.position = new Vector3(transform.position.x, playerObj.GetPlayerHeight / 4);
         transform.rotation = Quaternion.Euler(-15, 0, 0);
-        
+
         cameraMain.fieldOfView = 20;
         cameraYaw.transform.localRotation = Quaternion.Euler(30, 0, 0);
-        
+
         cameraMain.transform.localPosition = new Vector3(-2.6f, 13, 25.3f);
         cameraMain.transform.localRotation = Quaternion.Euler(30, 180, 0);
         cameraVector = cameraMain.transform.localPosition - playerObj.transform.position;

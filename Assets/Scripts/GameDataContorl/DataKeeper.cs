@@ -12,7 +12,7 @@ public class DataKeeper
     private string data = "";
 
 
-    #region properties
+#region properties
 
     public int IDShipSaveSlot
     {
@@ -20,7 +20,7 @@ public class DataKeeper
         set => idShipSaveSlot = value;
     }
 
-    #endregion
+#endregion
 
     public void Save(DataKeeper dataKeeper)
     {
@@ -30,8 +30,8 @@ public class DataKeeper
             path = Path.Combine(Application.persistentDataPath, "data\\GameData.json");
             Directory.CreateDirectory(Path.GetDirectoryName(path)!);
 
-            using FileStream stream = new FileStream(path, FileMode.Create);
-            using StreamWriter writer = new StreamWriter(stream);
+            using FileStream stream = new (path, FileMode.Create);
+            using StreamWriter writer = new (stream);
             writer.Write(data);
         }
         catch (Exception e) {
@@ -44,8 +44,8 @@ public class DataKeeper
         try {
             path = Path.Combine(Application.persistentDataPath, "data\\GameData.json");
 
-            using FileStream stream = new FileStream(path, FileMode.Open);
-            using StreamReader reader = new StreamReader(stream);
+            using FileStream stream = new (path, FileMode.Open);
+            using StreamReader reader = new (stream);
             data = reader.ReadToEnd();
 
             DataKeeper dataKeeper = JsonUtility.FromJson<DataKeeper>(data);

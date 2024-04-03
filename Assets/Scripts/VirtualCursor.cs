@@ -58,11 +58,11 @@ public class VirtualCursor : MonoBehaviour
         virtualCursorPosition.y += Input.GetAxis("Mouse Y") * mouseSensitivity;
         virtualCursorPosition.x = Math.Clamp(virtualCursorPosition.x, 0, Screen.width);
         virtualCursorPosition.y = Math.Clamp(virtualCursorPosition.y, 0, Screen.height);
-        
+
         //Left Click Init
         if (Input.GetMouseButtonDown(0)) {
             InputState.Change(virtualMouse, leftButtonMouseState.WithButton(MouseButton.Left));
-        
+
             InputState.Change(virtualMouse, idleMouseState);
             InputState.Change(virtualMouse, idleMouseState);
         }
@@ -73,7 +73,7 @@ public class VirtualCursor : MonoBehaviour
 
         //Virtual Mouse Pos
         InputState.Change(virtualMouse.position, virtualCursorPosition);
-        
+
         //Virtual Mouse Sprite Movement
         AnchorCursor(virtualCursorPosition);
     }
@@ -81,12 +81,12 @@ public class VirtualCursor : MonoBehaviour
     private void AnchorCursor(Vector2 cursorPosition)
     {
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvasRectTransform, 
+            canvasRectTransform,
             cursorPosition,
-            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : Camera.main, 
+            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : Camera.main,
             out var anchoredPosition
         );
-        
+
         virtualCursor.anchoredPosition = anchoredPosition;
     }
 }
