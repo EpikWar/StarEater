@@ -15,9 +15,10 @@ public class HangarState : GameState
         
         _hangarCameraControl.EnterHangarMode();
         _userInterface.EnterHangarMode();
-
-        Cursor.lockState = CursorLockMode.None; // TODO - remove
-        Cursor.visible = true;
+        
+        // Debug.Log("state");
+        // Cursor.lockState = CursorLockMode.None; // TODO - remove
+        // Cursor.visible = true;
     }
 
     public override void ExitState()
@@ -27,8 +28,8 @@ public class HangarState : GameState
         _hangarCameraControl.ExitHangarMode();
         _userInterface.ExitHangarMode();
         
-        Cursor.lockState = CursorLockMode.Locked; // TODO - remove
-        Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked; // TODO - remove
+        // Cursor.visible = false;
     }
     
     public override void UpdateState()
@@ -36,6 +37,7 @@ public class HangarState : GameState
         base.UpdateState();
         
         _hangarCameraControl.CameraControl();
+        // _userInterface.HangarVirtualCursor();
     }
 
     public override void FixedUpdateState()

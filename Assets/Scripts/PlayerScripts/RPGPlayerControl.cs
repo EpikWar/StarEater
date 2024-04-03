@@ -1,4 +1,3 @@
-using System;
 using UIScripts;
 using UnityEngine;
 
@@ -27,6 +26,7 @@ public class RPGPlayerControl : MonoBehaviour
     private Camera camMain;
     private LayerMask layerGround;
 
+    
     #region properties
 
     public float GetAfterburnerMaxValue => afterburnerMaxValue.GetValue();
@@ -44,11 +44,11 @@ public class RPGPlayerControl : MonoBehaviour
     {
         #region Singelton
 
-        if (instance != null)
-        {
+        if (instance != null) {
             Destroy(gameObject);
             return;
         }
+
         instance = this;
 
         #endregion
@@ -57,17 +57,18 @@ public class RPGPlayerControl : MonoBehaviour
     private void Start()
     {
         _rigidbody = gameObject.GetComponent<Rigidbody>();
-        
+
         camMain = Camera.main;
         layerGround = LayerMask.GetMask("Ground");
-        
+
         afterburnerScale.SetDefaultValue(3);
         afterburnerDrawValue.SetDefaultValue(2);
         afterburnerChargeValue.SetDefaultValue(0.2f);
         drag.SetDefaultValue(2);
-        
+
         afterburnerCurrentValue = afterburnerMaxValue.GetValue();
     }
+
     
     public void PlayerRotation()
     {
@@ -75,6 +76,7 @@ public class RPGPlayerControl : MonoBehaviour
 
         if (Input.GetMouseButton(1))
             currentRotation.y += Input.GetAxis("Mouse X") * rotateSensitivity;
+        
         transform.rotation = Quaternion.AngleAxis(currentRotation.y, Vector3.up);
     }
 
@@ -83,26 +85,30 @@ public class RPGPlayerControl : MonoBehaviour
         Vector3 moveVector = transform.forward * Input.GetAxis("Vertical") +
                              transform.right * Input.GetAxis("Horizontal");
 
-        if (GroundCheck())
+        if (GroundCheck()) {
             _rigidbody.drag = drag.GetValue();
-        else
-        {
+        }
+        else {
             _rigidbody.drag = 0;
             _rigidbody.AddForce(Vector3.down * 30, ForceMode.Force);
         }
 
         //Character move
-        if (Input.GetKey(KeyCode.LeftShift) && afterburnerCurrentValue > 95 * (afterburnerMaxValue.GetValue() / 100) && GroundCheck())
+        if (Input.GetKey(KeyCode.LeftShift) && afterburnerCurrentValue > 95 * (afterburnerMaxValue.GetValue() / 100) &&
+            GroundCheck()) {
             afterburnerCharge = false;
+        }
 
-        if (afterburnerCharge == false && GroundCheck())
+        if (afterburnerCharge == false && GroundCheck()) 
         {
             afterburnerCurrentValue -= afterburnerDrawValue.GetValue();
-            _rigidbody.AddForce(moveVector.normalized * (moveSpeed.GetValue() * afterburnerScale.GetValue()), ForceMode.Force);
+            _rigidbody.AddForce(moveVector.normalized * (moveSpeed.GetValue() * afterburnerScale.GetValue()), 
+                ForceMode.Force);
             _rigidbody.drag /= 2;
         }
-        else if (GroundCheck())
+        else if (GroundCheck()) {
             _rigidbody.AddForce(moveVector.normalized * moveSpeed.GetValue(), ForceMode.Force);
+        }
 
         if (afterburnerCharge == false && !GroundCheck())
             afterburnerCharge = true;
@@ -117,21 +123,20 @@ public class RPGPlayerControl : MonoBehaviour
     private bool GroundCheck()
     {
         LayerMask ground = LayerMask.GetMask("Ground");
-        Ray ray = new Ray(transform.position + new Vector3(0, playerRadius, 0), Vector3.down);
-        
+        Ray ray = new(transform.position + new Vector3(0, playerRadius, 0), Vector3.down);
+
         return Physics.SphereCast(ray, playerRadius, playerHeight / 2 + 0.3f, ground);
     }
 
     public void RotateToCursor() //There was a bug, but it disappeared
     {
         Ray ray = camMain.ScreenPointToRay(GameUserInterface.instance.GetVirtualCursorPosition());
-        
-        if (Physics.Raycast(ray, out var hit, Mathf.Infinity, layerGround)
-            && !Input.GetMouseButton(1) && GameManager.instance.currentGameState == GameManager.instance._rpgState)
+
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerGround)
+            && !Input.GetMouseButton(1) && GameManager.instance.IsRPGState()) 
         {
-            Vector3 pointRotation = new Vector3(hit.point.x, playerModel.transform.position.y, hit.point.z);
+            Vector3 pointRotation = new(hit.point.x, playerModel.transform.position.y, hit.point.z);
             playerModel.transform.LookAt(pointRotation);
         }
-
     }
 }

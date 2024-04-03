@@ -1,5 +1,4 @@
 using UIScripts;
-using UnityEngine;
 
 public class RPGState : GameState 
 {
@@ -35,7 +34,6 @@ public class RPGState : GameState
         _rpgPlayerControl.PlayerRotation();
         _rpgPlayerControl.RotateToCursor();
         
-        _userInterface.RPGVirtualCursor();
         _userInterface.LockTarget();
         _userInterface.ShipInfoControl();
     }

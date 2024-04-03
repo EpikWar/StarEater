@@ -150,7 +150,7 @@ public class BeamLaserGun : MonoBehaviour
             if (Physics.Raycast(muzzle.position, transform.forward, out var hit, 
                     maxDistantShot.GetValue(), excludePlayer)) {
                 waeponFire = true;
-                _lineRenderer.SetPosition(1, hit.point);
+                endPoint = hit.point;
             }
             else {
                 waeponFire = true;

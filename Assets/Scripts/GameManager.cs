@@ -7,14 +7,14 @@ public class GameManager : MonoBehaviour
     
     public PlayableShip[] playablelShip;
     
-    private StateMachine _stateMachine = new();
-    public RPGState _rpgState = new();
-    public RTSState _rtsState = new();
-    public HangarState _hangarState = new();
+    private readonly StateMachine _stateMachine = new();
+    private readonly RPGState _rpgState = new();
+    private readonly RTSState _rtsState = new();
+    private readonly HangarState _hangarState = new();
     
     private ShipDataKeeper shipData = new();
 
-    public GameState currentGameState { get; private set; }
+    private GameState currentGameState;
 
 
     private void Awake()
@@ -29,13 +29,16 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        #region Singelton
+    #region Singelton
+
         if (instance != null) {
             Destroy(gameObject);
             return;
         }
+
         instance = this;
-        #endregion
+
+    #endregion
     }
     
     private void Start()
@@ -46,6 +49,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         _stateMachine.currentState.UpdateState();
+        
         currentGameState = _stateMachine.currentState;
         
         //Temporally State change
@@ -60,20 +64,25 @@ public class GameManager : MonoBehaviour
         _stateMachine.currentState.FixedUpdateState();
     }
 
-    #region State check
+#region State check
+
     public bool IsRPGState()
     {
         return currentGameState == _rpgState;
     }
+
     public bool IsRTSState()
     {
         return currentGameState == _rtsState;
     }
+
     public bool IsHangarState()
     {
         return currentGameState == _hangarState;
     }
-    #endregion
+
+#endregion
+    
 }
 
 
